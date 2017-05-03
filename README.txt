@@ -4,3 +4,6 @@
 
  ##项目启动命令
  set DEBUG=myapp & npm start
+
+ ##默认端口
+ 3000
