@@ -2,8 +2,11 @@
  * Created by zhaojian on 2017/5/3.
  */
 
- ##项目启动命令
- set DEBUG=myapp & npm start
+##初始化项目
+npm install
 
- ##默认端口
- 3000
+##项目启动命令
+set DEBUG=myapp & npm start
+
+##默认端口
+3000
