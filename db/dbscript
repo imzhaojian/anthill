@@ -1,0 +1,4 @@
+mongoimport -d anthill -c book --type csv --headerline --upsert --drop  book.csv
+mongoimport -d anthill -c user --type csv --headerline --upsert --drop  user.csv
+mongoimport -d anthill -c comment --type csv --headerline --upsert --drop  comment.csv
+mongoimport -d anthill -c borrow --type csv --headerline --upsert --drop  borrow.csv
