@@ -1,0 +1,31 @@
+body{
+    background-color: #F2F3F7;
+}
+.container {
+    background-color: #fff;
+    margin-top: 4px;
+}
+.star{
+    font-size: 36px;
+}
+.starLevel {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+.starLevel > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+.starLevel > span:hover,
+.starLevel > span:hover ~ span {
+    color: transparent;
+}
+.starLevel > span:hover:before,
+.starLevel > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: gold;
+}
