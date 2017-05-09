@@ -10,8 +10,4 @@ router.get('/book-list', function (req, res, next) {
     res.render('book-list');
 });
 
-router.get('/book-detail', function (req, res, next) {
-    res.render('book-detail',{title:"JavaScript权威指南"})
-})
-
 module.exports = router;
