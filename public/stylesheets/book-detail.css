@@ -1,31 +1,63 @@
-body{
-    background-color: #F2F3F7;
+body {
+    font-family: micon2, 'Roboto Mono', 微软雅黑, 'Microsoft Yahei', SimSun, NSimSun, SimHei, Arial, sans-serif;
+    background-color:#F2F3F7;
 }
+
 .container {
-    background-color: #fff;
-    margin-top: 4px;
+    margin-top: 12px;
+    background-color: #ffffff;
+    min-height: 600px;
 }
-.star{
-    font-size: 36px;
+
+.book-info-container {
+    padding: 30px;
+    margin: 40px 0;
 }
-.starLevel {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
-}
-.starLevel > span {
-    display: inline-block;
+
+.book-img-container {
     position: relative;
-    width: 1.1em;
+    width: 260px;
+    height: 261px;
+    padding: 0 !important;
+    float: left;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 10px 0px 0;
 }
-.starLevel > span:hover,
-.starLevel > span:hover ~ span {
-    color: transparent;
-}
-.starLevel > span:hover:before,
-.starLevel > span:hover ~ span:before {
-    content: "\2605";
+
+.book-img-container img {
+    max-width: 260px;
+    max-height: 260px;
     position: absolute;
-    left: 0;
-    color: gold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 1px;
+}
+
+.book-base-container {
+    height: 261px;
+}
+
+.book-base-line {
+    color: #333;
+    padding: 5px;
+    font-size: 15px;
+}
+
+
+
+.book-name {
+    font-size: 25px;
+}
+
+.book-author, .book-short-desc {
+    font-style: italic;
+}
+
+.book-desc-container {
+    font-size: 13px;
+    clear: both;
+    padding: 30px 30px !important;
+    line-height: 2;
+    color: #313131;
 }
