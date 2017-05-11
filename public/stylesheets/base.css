@@ -39,6 +39,11 @@ abbr, acronym {
     border: 0
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 /*文字排版*/
 .f12 {
     font-size: 12px
