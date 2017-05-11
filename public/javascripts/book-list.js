@@ -37,7 +37,7 @@ var BookListContainer = React.createClass({
         });
         return (
             <div className="book-list-container">
-                <ul>
+                <ul className="clearfix">
                 {bookNodes}
                 </ul>
             </div>
@@ -56,7 +56,16 @@ var data = [
     {bookId: "8", bookName: "JavaScript权威指南(第8版)", bookImg: "./images/book4.jpg", desc: "内容涵盖JavaScript语言本身8"},
     {bookId: "9", bookName: "JavaScript权威指南(第9版)", bookImg: "./images/book2.jpg", desc: "内容涵盖JavaScript语言本身9"},
     {bookId: "10", bookName: "JavaScript权威指南(第10版)", bookImg: "./images/book3.jpg", desc: "内容涵盖JavaScript语言本身10"},
-    {bookId: "11", bookName: "JavaScript权威指南(第11版)", bookImg: "./images/book4.jpg", desc: "内容涵盖JavaScript语言本身11"}
+    {bookId: "11", bookName: "JavaScript权威指南(第11版)", bookImg: "./images/book4.jpg", desc: "内容涵盖JavaScript语言本身11"},
+    {bookId: "12", bookName: "JavaScript权威指南(第12版)", bookImg: "./images/book1.jpg", desc: "内容涵盖JavaScript语言本身1"},
+    {bookId: "13", bookName: "JavaScript权威指南(第13版)", bookImg: "./images/book2.jpg", desc: "内容涵盖JavaScript语言本身2"},
+    {bookId: "14", bookName: "JavaScript权威指南(第14版)", bookImg: "./images/book3.jpg", desc: "内容涵盖JavaScript语言本身3"},
+    {bookId: "15", bookName: "JavaScript权威指南(第15版)", bookImg: "./images/book4.jpg", desc: "内容涵盖JavaScript语言本身4"},
+    {bookId: "16", bookName: "JavaScript权威指南(第16版)", bookImg: "./images/book1.jpg", desc: "内容涵盖JavaScript语言本身5"},
+    {bookId: "17", bookName: "JavaScript权威指南(第17版)", bookImg: "./images/book2.jpg", desc: "内容涵盖JavaScript语言本身6"},
+    {bookId: "18", bookName: "JavaScript权威指南(第18版)", bookImg: "./images/book3.jpg", desc: "内容涵盖JavaScript语言本身7"},
+    {bookId: "19", bookName: "JavaScript权威指南(第19版)", bookImg: "./images/book4.jpg", desc: "内容涵盖JavaScript语言本身8"},
+    {bookId: "20", bookName: "JavaScript权威指南(第20版)", bookImg: "./images/book2.jpg", desc: "内容涵盖JavaScript语言本身9"}
 ]
 
 ReactDOM.render(
@@ -65,8 +74,5 @@ ReactDOM.render(
 );
 
 $(function () {
-    $('body').perfectScrollbar();
-
-    // with vanilla JS!
-    Ps.initialize(document.getElementsByTagName("body")[0]);
+    $('#content').perfectScrollbar();
 });
