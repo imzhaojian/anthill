@@ -1,0 +1,116 @@
+
+::selection {
+    color: #f00;
+    background-color: #FFF052;
+    text-shadow: none;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/*::-webkit-scrollbar:window-inactive{*/
+/*background-color: red;*/
+/*}*/
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track:hover {
+    /*background-color: #eee;*/
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #aaa;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    /*text-decoration: underline;*/
+}
+
+.arrow {
+    position: relative;
+    display: none;
+    /*opacity: 0;*/
+    -webkit-transition: opacity 0.4s ease-in-out 0.3s;
+    -moz-transition: opacity 0.4s ease-in-out 0.3s;
+    -ms-transition: opacity 0.4s ease-in-out 0.3s;
+    -o-transition: opacity 0.4s ease-in-out 0.3s;
+    transition: opacity 0.4s ease-in-out 0.3s;
+}
+
+.arrow.up img {
+    -webkit-transform: rotateX(180deg) rotateY(180deg) rotateZ(30deg) scale(0.6);
+    -moz-transform: rotateX(180deg) rotateY(180deg) rotateZ(30deg) scale(0.6);
+    -ms-transform: rotateX(180deg) rotateY(180deg) rotateZ(30deg) scale(0.6);
+    -o-transform: rotateX(180deg) rotateY(180deg) rotateZ(30deg) scale(0.6);
+    transform: rotateX(180deg) rotateY(180deg) rotateZ(30deg) scale(0.6);
+}
+
+.arrow span {
+    width: 225px;
+    margin-top: 1.5em;
+    color: rgb(204, 0, 0);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 14px;
+    position: relative;
+    left: 180px;
+    bottom: 45px;
+}
+
+/*loading*/
+.mask-container, .mask-bg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 9000;
+}
+
+.mask-container .mask-bg {
+    background-color: #000;
+    opacity: 0.1;
+    z-index: 9001;
+}
+
+.mask-container .mask-content {
+    z-index: 9002;
+}
+
+/**
+color
+**/
+.orange {
+    color: #FFF052;
+}
+
+.red {
+    color: #FF0A0A;
+}
+
+.purple {
+    color: #9652FF
+}
+
+.blue {
+    color: blue
+}
+

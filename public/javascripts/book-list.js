@@ -37,7 +37,7 @@ var BookListContainer = React.createClass({
         });
         return (
             <div className="book-list-container">
-                <ul className="clearfix">
+                <ul>
                 {bookNodes}
                 </ul>
             </div>
@@ -45,6 +45,43 @@ var BookListContainer = React.createClass({
     }
 });
 
+var InnerTopNav = React.createClass({
+    render: function () {
+        return (
+            <div className="innerTopNav">
+                <ul>
+                    <li className="all active">
+                        <a href="">
+                            <i className="icon home"></i>
+                            所有图书</a>
+                    </li>
+                    <li className="new">
+                        <a href="">
+                            <i className="icon important"></i>
+                            新书</a>
+                    </li>
+                    <li className="canBorrow">
+                        <a href="">
+                            <i className="icon flag"></i>
+                            未被借阅的书</a>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+});
+
+
+var Content = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <InnerTopNav />
+                <BookListContainer data={this.props.data}/>
+            </div>
+        );
+    }
+});
 var data = [
     {bookId: "1", bookName: "JavaScript权威指南(第1版)", bookImg: "./images/book1.jpg", desc: "内容涵盖JavaScript语言本身1"},
     {bookId: "2", bookName: "JavaScript权威指南(第2版)", bookImg: "./images/book2.jpg", desc: "内容涵盖JavaScript语言本身2"},
@@ -69,10 +106,6 @@ var data = [
 ]
 
 ReactDOM.render(
-    <BookListContainer data={data}/>,
+    <Content data={data}/>,
     document.getElementById('content')
 );
-
-$(function () {
-    $('#content').perfectScrollbar();
-});

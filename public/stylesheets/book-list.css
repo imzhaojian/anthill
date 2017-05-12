@@ -1,6 +1,42 @@
 .content {
     position: relative;
-    height: 860px;
+    background-color: #F2F3F7;
+    font-family: 'micon2', 'Roboto Mono', 微软雅黑, 'Microsoft Yahei', SimSun, NSimSun, SimHei, Arial, sans-serif;
+}
+
+.content .innerTopNav {
+    text-align: center;
+}
+
+.content .innerTopNav ul {
+    padding: 15px;
+}
+
+.content .innerTopNav li {
+    display: inline;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 5px;
+    line-height: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    margin-left: 10px;
+}
+
+.content .innerTopNav li .icon {
+    margin-right: 5px;
+    font-size: 13px;
+    font: inherit;
+}
+
+.content .innerTopNav li.active {
+    background-color: #383838;
+}
+
+.content .innerTopNav li.active a {
+    color: #fff;
 }
 
 .content .book-list-container {
@@ -55,6 +91,7 @@
     margin: 0 4px;
     color: orange;
     font-size: 12px;
+    font: inherit;
 }
 
 .content .book-list-container .bookNode .operate {
