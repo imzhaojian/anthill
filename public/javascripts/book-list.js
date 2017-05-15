@@ -4,6 +4,13 @@
 
 var BookNode = React.createClass({
     render: function () {
+        var rank = this.props.data.rank;
+        var stars = [];
+        {
+            for (var index = 0; index < rank; index++) {
+                stars.push(<i className="icon star" key={index}></i>);
+            }
+        }
         return (
             <li className="bookNode">
                 <div className="cover">
@@ -13,16 +20,12 @@ var BookNode = React.createClass({
                     <a href={"/book-detail?bookid=" + this.props.data.bookid} target="_blank">{this.props.data.bookname}</a>
                 </div>
                 <div className="appraise">
-                    <i className="icon star"></i>
-                    <i className="icon star"></i>
-                    <i className="icon star"></i>
-                    <i className="icon star"></i>
-                    <i className="icon star"></i>
+                    {stars}
                 </div>
                 <div className="operate">
                     <div className="btn borrow">借阅</div>
                 </div>
-                <div className="shortDesc">{this.props.data.desc}</div>
+                <div className="shortDesc">{this.props.data.comment}</div>
             </li>
         );
     }
