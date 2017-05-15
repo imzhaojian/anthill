@@ -12,11 +12,10 @@ router.get('/book-list', function (req, res, next) {
 });
 
 router.get('/getAllBook', function (req, res, next) {
-    console.info(bookModel);
     var response=res;
     bookModel.find({},function(err, result, res){
         if(err) return console.log(err);
-        response.render('book-list', { result })
+        response.json(result)
     })
 });
 

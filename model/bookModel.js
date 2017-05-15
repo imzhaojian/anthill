@@ -15,7 +15,7 @@ var BookSchema = new Schema({
     comment: {type: Number},
     summary: {type: Number},
     rank: {type: Number}
-});
+}, {collection: "book"});
 var bookModel = mongoose.model('book', BookSchema);
 
 module.exports = bookModel;
