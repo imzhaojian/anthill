@@ -7,10 +7,10 @@ var BookNode = React.createClass({
         return (
             <li className="bookNode">
                 <div className="cover">
-                    <img src={this.props.data.bookImg} />
+                    <img src={this.props.data.bookimg} />
                 </div>
-                <div className="name" title={this.props.data.bookName}>
-                    <a href={"/book/info/" + this.props.data.bookId} target="_blank">{this.props.data.bookName}</a>
+                <div className="name" title={this.props.data.bookname}>
+                    <a href={"/book/info/" + this.props.data.bookid} target="_blank">{this.props.data.bookname}</a>
                 </div>
                 <div className="appraise">
                     <i className="icon star"></i>
@@ -30,9 +30,9 @@ var BookNode = React.createClass({
 
 var BookListContainer = React.createClass({
     render: function () {
-        var bookNodes = this.props.data.map(function (comment) {
+        var bookNodes = this.props.data.map(function (book) {
             return (
-                <BookNode data={comment} key={comment.bookId}></BookNode>
+                <BookNode data={book} key={book.bookid}></BookNode>
             );
         });
         return (

@@ -7,13 +7,14 @@ var mongoose = require('./mongodbCon').mongoose;
 var Schema = mongoose.Schema;
 var BookSchema = new Schema({
     bookid: {type: Number, index: true},
-    bookname: {type: Number},
-    author: {type: Number},
-    public: {type: Number},
-    buydate: {type: Number},
-    publicdate: {type: Number},
-    comment: {type: Number},
-    summary: {type: Number},
+    bookname: {type: String},
+    author: {type: String},
+    bookimg: {type: String},
+    public: {type: String},
+    buydate: {type: String},
+    publicdate: {type: String},
+    comment: {type: String},
+    summary: {type: String},
     rank: {type: Number}
 }, {collection: "book"});
 var bookModel = mongoose.model('book', BookSchema);
