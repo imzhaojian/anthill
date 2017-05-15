@@ -10,7 +10,7 @@ var BookNode = React.createClass({
                     <img src={this.props.data.bookimg} />
                 </div>
                 <div className="name" title={this.props.data.bookname}>
-                    <a href={"/book/info/" + this.props.data.bookid} target="_blank">{this.props.data.bookname}</a>
+                    <a href={"/book-detail?bookid=" + this.props.data.bookid} target="_blank">{this.props.data.bookname}</a>
                 </div>
                 <div className="appraise">
                     <i className="icon star"></i>
