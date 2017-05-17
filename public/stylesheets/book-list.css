@@ -1,6 +1,9 @@
-.content {
+body {
     background-color: #F2F3F7;
-    padding-bottom: 20px;
+}
+
+.content {
+    position: relative;
     font-family: 'micon2', 'Roboto Mono', 微软雅黑, 'Microsoft Yahei', SimSun, NSimSun, SimHei, Arial, sans-serif;
 }
 
@@ -37,11 +40,13 @@
 }
 
 .content .book-list-container {
-    margin: 0 auto;
+    position: absolute;
     width: 1100px;
     transition: all 3s;
     background: #fff;
     overflow: auto;
+    left: 50%;
+    margin-left: -550px;
 }
 
 .content .book-list-container .bookNode {
@@ -119,4 +124,66 @@
     border-top: 1px solid #dedede;
     margin: 0 auto;
     line-height: 1.5;
+}
+
+.content .book-detail-container {
+    position: absolute;
+    width: 1100px;
+    transition: all 3s;
+    background: #fff;
+    overflow: auto;
+    left: 50%;
+    margin-left: -550px;
+    margin-bottom: 20px;
+}
+
+.content .book-info-container {
+    padding: 30px;
+    margin: 40px 0;
+}
+
+.content .book-img-container {
+    position: relative;
+    width: 260px;
+    height: 261px;
+    padding: 0 !important;
+    float: left;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 10px 0px 0;
+}
+
+.content .book-img-container img {
+    max-width: 260px;
+    max-height: 260px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 1px;
+}
+
+.content .book-base-container {
+    height: 261px;
+}
+
+.content .book-base-line {
+    color: #333;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.content .book-name {
+    font-size: 25px;
+}
+
+.content .book-author, .book-short-desc {
+    font-style: italic;
+}
+
+.content .book-desc-container {
+    font-size: 13px;
+    clear: both;
+    padding: 30px 30px !important;
+    line-height: 2;
+    color: #313131;
 }

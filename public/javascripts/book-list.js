@@ -2,7 +2,113 @@
  * Created by zhaojian on 2017/5/4.
  */
 
+/**
+ * 书籍详细信息页面
+ */
+class BookDetailContainer extends React.Component {
+    render() {
+        let baseInfo = {
+            name: this.props.book.name,
+            author: this.props.book.author,
+            publishHouse: this.props.book.publishHouse,
+            publishTime: this.props.book.publishTime,
+            buyTime: this.props.book.buyTime,
+            shortDesc: this.props.book.shortDesc
+        };
+
+        return (
+            <div className="book-detail-container center-flip s-hide">
+                <div className="book-info-container">
+                    <BookImg img={this.props.book.img} />
+                    <BookBaseInfo baseInfo={baseInfo} />
+                    <BookDesc desc={this.props.book.desc} contents={this.props.book.contents} />
+                </div>
+            </div>
+        )
+    }
+}
+/**
+ * 书籍图片信息
+ */
+class BookImg extends React.Component {
+    render() {
+        return (
+            <div className="book-img-container">
+                <img src={this.props.img} />
+            </div>
+        )
+    }
+}
+
+class BookBaseInfo extends React.Component {
+
+    render() {
+        return (
+            <div className="book-base-container">
+                <BookBaseLine className="book-name" content={this.props.baseInfo.name} />
+                <BookBaseLine className="book-author" content={this.props.baseInfo.author} />
+                <BookBaseLine  content={this.props.baseInfo.publishHouse} />
+                <BookBaseLine  content={this.props.baseInfo.publishTime} />
+                <BookBaseLine  content={this.props.baseInfo.buyTime} />
+                <BookBaseLine className="book-short-desc"  content={this.props.baseInfo.shortDesc} />
+            </div>
+        )
+    }
+}
+
+/**
+ * 书籍单条基础信息
+ */
+class BookBaseLine extends React.Component {
+    render() {
+        let className;
+        if (this.props.className) {
+            className = "book-base-line " + this.props.className;
+        } else {
+            className = "book-base-line";
+        }
+
+        return (
+            <div className={className}>
+                {this.props.content}
+            </div>
+        )
+    }
+}
+
+/**
+ * 书籍介绍
+ */
+class BookDesc extends React.Component {
+    render() {
+        return (
+            <div className="book-desc-container">
+                {this.props.desc}
+                <br/>
+                <br/>
+                <BookContent contents={this.props.contents} />
+            </div>
+        )
+    }
+}
+
+/**
+ * 书籍推荐
+ */
+class BookContent extends React.Component {
+
+    render() {
+        return (
+            <div className="book-content" dangerouslySetInnerHTML={{__html: this.props.contents}} >
+            </div>
+        )
+    }
+}
+
 var BookNode = React.createClass({
+    loadBookDetailServer: function () {
+        this.props.loadBookDetailServer(this.props.data.id);
+    },
     render: function () {
         var rank = this.props.data.starLevel;
         var stars = [];
@@ -17,7 +123,7 @@ var BookNode = React.createClass({
                     <img src={this.props.data.img} />
                 </div>
                 <div className="name" title={this.props.data.name}>
-                    <a href={"/book-detail?id=" + this.props.data.id} target="_blank">{this.props.data.name}</a>
+                    <a href={"javascript:void(0);"}  onClick={this.loadBookDetailServer}>{this.props.data.name}</a>
                 </div>
                 <div className="appraise">
                     {stars}
@@ -35,11 +141,11 @@ var BookListContainer = React.createClass({
     render: function () {
         var bookNodes = this.props.data.map(function (book) {
             return (
-                <BookNode data={book} key={book.id}></BookNode>
+                <BookNode data={book} key={book.id} loadBookDetailServer={this.props.loadBookDetailServer}></BookNode>
             );
-        });
+        }.bind(this));
         return (
-            <div className="book-list-container">
+            <div className="book-list-container center-flip s-show">
                 <ul>
                 {bookNodes}
                 </ul>
@@ -81,6 +187,8 @@ var InnerTopNav = React.createClass({
 
 var Content = React.createClass({
     loadAllBookServer: function (type) {
+        $(".book-list-container").removeClass("s-hide").addClass("s-show");
+        $(".book-detail-container").removeClass("s-show").addClass("s-hide");
         $.ajax({
             url: this.props.url,
             data: {
@@ -96,8 +204,26 @@ var Content = React.createClass({
             }.bind(this)
         });
     },
+    loadBookDetailServer: function (id) {
+        $(".book-detail-container").removeClass("s-hide").addClass("s-show");
+        $(".book-list-container").removeClass("s-show").addClass("s-hide");
+        $.ajax({
+            url: this.props.url,
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                this.setState({book: data[0]});
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
     getInitialState: function() {
-        return {data: []};
+        return {data: [], book: ""};
     },
     componentDidMount: function() {
         this.loadAllBookServer("all");
@@ -106,7 +232,8 @@ var Content = React.createClass({
         return (
             <div>
                 <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
-                <BookListContainer data={this.state.data}/>
+                <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer}/>
+                <BookDetailContainer book={this.state.book}/>
             </div>
         );
     }

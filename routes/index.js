@@ -33,9 +33,17 @@ router.get('/getAllBook', function (req, res, next) {
     })
 });
 
+router.get('/bookDetail', function (req, res, next) {
+    res.render('book-detail', {title: "JavaScript权威指南"})
+})
+
 router.get('/book-detail', function (req, res, next) {
     var id = req.param('id');
-    res.render('book-detail', {title: "JavaScript权威指南"})
+    var response = res;
+    bookModel.find({id: id}, function (err, result, res) {
+        if (err) return console.log(err);
+        response.json(result)
+    })
 })
 
 module.exports = router;
