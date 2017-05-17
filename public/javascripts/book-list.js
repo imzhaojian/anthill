@@ -190,7 +190,7 @@ var Content = React.createClass({
         $(".book-list-container").removeClass("s-hide").addClass("s-show");
         $(".book-detail-container").removeClass("s-show").addClass("s-hide");
         $.ajax({
-            url: this.props.url,
+            url: this.props.listUrl,
             data: {
                 type: type
             },
@@ -208,7 +208,7 @@ var Content = React.createClass({
         $(".book-detail-container").removeClass("s-hide").addClass("s-show");
         $(".book-list-container").removeClass("s-show").addClass("s-hide");
         $.ajax({
-            url: this.props.url,
+            url: this.props.detailUrl,
             data: {
                 id: id
             },
@@ -240,7 +240,7 @@ var Content = React.createClass({
 });
 
 ReactDOM.render(
-    <Content url="/getAllBook"/>,
+    <Content listUrl="/getAllBook" detailUrl="/bookDetail"/>,
     document.getElementById('content')
 );
 
