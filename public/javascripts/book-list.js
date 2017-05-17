@@ -3,6 +3,37 @@
  */
 
 /**
+ *  返回顶部
+ */
+var GoTop = React.createClass({
+    getInitialState: function () {
+        $(window).scroll(function () {
+            var scrollValue = $(window).scrollTop();
+            if (scrollValue > 200 && !this.state.show) {
+                this.setState({show: true})
+            }
+            ;
+            if (scrollValue < 200 && this.state.show) {
+                this.setState({show: false})
+            }
+            ;
+        }.bind(this));
+
+        return {show: false};
+    },
+    goToTop: function () {
+        $('html,body').animate({scrollTop: 0}, 500);
+        this.setState({show: false});
+    },
+    render: function () {
+        var className = this.state.show ? "gotop icon up show" : "gotop icon up";
+        return (
+            <div className={className} onClick={this.goToTop}></div>
+        )
+    }
+});
+
+/**
  * 书籍详细信息页面
  */
 class BookDetailContainer extends React.Component {
@@ -234,6 +265,7 @@ var Content = React.createClass({
                 <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
                 <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer}/>
                 <BookDetailContainer book={this.state.book}/>
+                <GoTop></GoTop>
             </div>
         );
     }

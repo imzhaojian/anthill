@@ -187,3 +187,31 @@ body {
     line-height: 2;
     color: #313131;
 }
+
+/**gotop*/
+.gotop {
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
+    font-size: 45px;
+    text-align: center;
+    line-height: 1;
+    color: #797979;
+    opacity: 0.6;
+    cursor: pointer;
+    display: none;
+    border-radius: 5px;
+    border: 1px solid #CECECE;
+    background-color: #fff;
+    box-shadow: 0px 2px 2px #CCC7C7;
+}
+
+.gotop:hover {
+    opacity: 1;
+}
+
+.gotop.show {
+    display: block;
+}
