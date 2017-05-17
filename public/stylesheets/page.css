@@ -1,0 +1,60 @@
+
+.pager {
+    display: block;
+    position: fixed;
+    right: 20px;
+    top: 240px;
+    background-color: #fff;
+    text-align: center;
+    /*border: 1px solid #CECECE;*/
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 2px #CCC7C7;
+    /*opacity: 0.6;*/
+    width: 35px;
+    color: blue;
+    z-index: 500;
+}
+
+.pager:hover {
+    opacity: 1;
+}
+
+.pager .cursorContainer {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pager .cursorContainer .cursor {
+    padding: 8px 5px;
+    cursor: pointer;
+}
+
+.pager .cursorContainer .cursor:hover {
+    background-color: #f1f1f1;
+}
+
+.pager .cursorContainer .cursor.disable {
+    cursor: default;
+    color: #aaa;
+}
+
+.pager .cursorContainer .cursor.disable:hover {
+    background-color: #fff;
+}
+
+.pager .cursorContainer .cursor.current {
+    color: #F95A5A;
+    font-weight: bold;
+    font-size: 18px;
+    font-style: inherit;
+}
+
+.pager .cursorContainer .cursor.prev, .pager .cursorContainer .cursor.next {
+    font-size: 20px;
+}

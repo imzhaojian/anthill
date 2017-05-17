@@ -3,6 +3,40 @@
  */
 
 /**
+ * page
+ */
+var Page = React.createClass({
+    loadAllBookServer: function (event) {
+        this.props.loadAllBookServer(this.props.type, event.target.getAttribute("data-pageNo"));
+    },
+    render: function () {
+        var totalPage = this.props.totalPage;
+        var pageNo = this.props.pageNo;
+        var pageLi = [];
+        var prevClassName = pageNo <= 1 ? "cursor prev icon up disable" : "cursor prev icon up";
+        pageLi.push(<li className={prevClassName}></li>);
+
+        for (var index = 1; index <= totalPage; index++) {
+            var indexClassName = pageNo == index ? "cursor current" : "cursor";
+            pageLi.push((function (index) {
+                return (<i className={indexClassName} key={index} data-pageNo={index} onClick={this.loadAllBookServer}>{index}</i>);
+            }.bind(this))(index));
+        }
+
+        var nextClassName = pageNo >= totalPage ? "cursor next icon down disable" : "cursor next icon down";
+        pageLi.push(<li className={nextClassName}></li>);
+
+        return (
+            <div className="pager">
+                <ul className="cursorContainer">
+                    {pageLi}
+                </ul>
+            </div>
+        );
+    }
+})
+
+/**
  *  返回顶部
  */
 var GoTop = React.createClass({
@@ -143,10 +177,8 @@ var BookNode = React.createClass({
     render: function () {
         var rank = this.props.data.starLevel;
         var stars = [];
-        {
-            for (var index = 0; index < rank; index++) {
-                stars.push(<i className="icon star" key={index}></i>);
-            }
+        for (var index = 0; index < rank; index++) {
+            stars.push(<i className="icon star" key={index}></i>);
         }
         return (
             <li className="bookNode">
@@ -217,18 +249,20 @@ var InnerTopNav = React.createClass({
 
 
 var Content = React.createClass({
-    loadAllBookServer: function (type) {
+    loadAllBookServer: function (type, pageNo) {
+        this.setState({type: type});
         $(".book-list-container").removeClass("s-hide").addClass("s-show");
         $(".book-detail-container").removeClass("s-show").addClass("s-hide");
         $.ajax({
             url: this.props.listUrl,
             data: {
-                type: type
+                type: type,
+                pageNo: pageNo ? pageNo : 1
             },
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({data: data});
+                this.setState({data: data.results, pageNo: data.pageNo, totalPage: data.totalPage});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -254,7 +288,7 @@ var Content = React.createClass({
         });
     },
     getInitialState: function() {
-        return {data: [], book: ""};
+        return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all"};
     },
     componentDidMount: function() {
         this.loadAllBookServer("all");
@@ -266,6 +300,7 @@ var Content = React.createClass({
                 <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer}/>
                 <BookDetailContainer book={this.state.book}/>
                 <GoTop></GoTop>
+                <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} loadAllBookServer={this.loadAllBookServer}></Page>
             </div>
         );
     }
