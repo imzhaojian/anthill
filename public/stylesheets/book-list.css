@@ -33,9 +33,6 @@
 
 .content .innerTopNav li.active {
     background-color: #383838;
-}
-
-.content .innerTopNav li.active a {
     color: #fff;
 }
 

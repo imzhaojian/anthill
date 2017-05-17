@@ -4,7 +4,7 @@
 
 var BookNode = React.createClass({
     render: function () {
-        var rank = this.props.data.rank;
+        var rank = this.props.data.starLevel;
         var stars = [];
         {
             for (var index = 0; index < rank; index++) {
@@ -14,10 +14,10 @@ var BookNode = React.createClass({
         return (
             <li className="bookNode">
                 <div className="cover">
-                    <img src={this.props.data.bookimg} />
+                    <img src={this.props.data.img} />
                 </div>
-                <div className="name" title={this.props.data.bookname}>
-                    <a href={"/book-detail?bookid=" + this.props.data.bookid} target="_blank">{this.props.data.bookname}</a>
+                <div className="name" title={this.props.data.name}>
+                    <a href={"/book-detail?id=" + this.props.data.id} target="_blank">{this.props.data.name}</a>
                 </div>
                 <div className="appraise">
                     {stars}
@@ -25,7 +25,7 @@ var BookNode = React.createClass({
                 <div className="operate">
                     <div className="btn borrow">借阅</div>
                 </div>
-                <div className="shortDesc">{this.props.data.comment}</div>
+                <div className="shortDesc">{this.props.data.shortDesc}</div>
             </li>
         );
     }
@@ -35,7 +35,7 @@ var BookListContainer = React.createClass({
     render: function () {
         var bookNodes = this.props.data.map(function (book) {
             return (
-                <BookNode data={book} key={book.bookid}></BookNode>
+                <BookNode data={book} key={book.id}></BookNode>
             );
         });
         return (
@@ -49,25 +49,29 @@ var BookListContainer = React.createClass({
 });
 
 var InnerTopNav = React.createClass({
+    getInitialState: function () {
+        return {type: "all"};
+    },
+    handleClick: function (event) {
+        var type = event.target.getAttribute('data-key');
+        this.setState({type: type});
+        this.props.loadAllBookServer(type);
+    },
     render: function () {
+        var catalogs = [{type: "all", name: "所有图书"}, {type: "new", name: "新书"}, {type: "canBorrow", name: "未被借阅的书"}];
+
+        var navLis = catalogs.map(function (catalog) {
+            var className = catalog.type == this.state.type ? catalog.type + " active" : catalog.type;
+            return (
+                <li className={className} key={catalog.type} data-key={catalog.type} onClick={this.handleClick}>
+                    <i className="icon home" data-key={catalog.type}></i>{catalog.name}
+                </li>
+            )
+        }.bind(this));
         return (
             <div className="innerTopNav">
                 <ul>
-                    <li className="all active">
-                        <a href="">
-                            <i className="icon home"></i>
-                            所有图书</a>
-                    </li>
-                    <li className="new">
-                        <a href="">
-                            <i className="icon important"></i>
-                            新书</a>
-                    </li>
-                    <li className="canBorrow">
-                        <a href="">
-                            <i className="icon flag"></i>
-                            未被借阅的书</a>
-                    </li>
+                    {navLis}
                 </ul>
             </div>
         );
@@ -76,9 +80,12 @@ var InnerTopNav = React.createClass({
 
 
 var Content = React.createClass({
-    loadAllBookServer: function() {
+    loadAllBookServer: function (type) {
         $.ajax({
             url: this.props.url,
+            data: {
+                type: type
+            },
             dataType: 'json',
             cache: false,
             success: function(data) {
@@ -93,12 +100,12 @@ var Content = React.createClass({
         return {data: []};
     },
     componentDidMount: function() {
-        this.loadAllBookServer();
+        this.loadAllBookServer("all");
     },
     render: function () {
         return (
             <div>
-                <InnerTopNav />
+                <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
                 <BookListContainer data={this.state.data}/>
             </div>
         );
@@ -109,3 +116,4 @@ ReactDOM.render(
     <Content url="/getAllBook"/>,
     document.getElementById('content')
 );
+

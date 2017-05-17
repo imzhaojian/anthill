@@ -4,7 +4,7 @@ var bookModel = require('../model/bookModel');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.redirect('/book-list');
 });
 
 router.get('/book-list', function (req, res, next) {
@@ -12,14 +12,29 @@ router.get('/book-list', function (req, res, next) {
 });
 
 router.get('/getAllBook', function (req, res, next) {
+    var type = req.param("type");
+    var params = "";
+    if (type == "all") {
+        params = {"$or": [{lendFlag: 0}, {lendFlag: 1}]}
+    }
+    ;
+    if (type == "new") {
+        params = {"$or": [{lendFlag: 0}]}
+    }
+    ;
+    if (type == "canBorrow") {
+        params = {"$or": [{lendFlag: 1}]}
+    }
+    ;
     var response=res;
-    bookModel.find({},function(err, result, res){
+    bookModel.find(params, function (err, result, res) {
         if(err) return console.log(err);
         response.json(result)
     })
 });
 
 router.get('/book-detail', function (req, res, next) {
+    var id = req.param('id');
     res.render('book-detail', {title: "JavaScript权威指南"})
 })
 

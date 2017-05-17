@@ -6,16 +6,18 @@ var mongoose = require('./mongodbCon').mongoose;
 // 创建schema
 var Schema = mongoose.Schema;
 var BookSchema = new Schema({
-    bookid: {type: Number, index: true},
-    bookname: {type: String},
+    id: {type: Number, index: true},
+    name: {type: String},
     author: {type: String},
-    bookimg: {type: String},
-    public: {type: String},
-    buydate: {type: String},
-    publicdate: {type: String},
-    comment: {type: String},
-    summary: {type: String},
-    rank: {type: Number}
+    img: {type: String},
+    publishHouse: {type: String},
+    publishTime: {type: String},
+    buyDate: {type: String},
+    shortDesc: {type: String},
+    desc: {type: String},
+    contents: {type: String},
+    starLevel: {type: Number},
+    lendFlag: {type: Number}
 }, {collection: "book"});
 var bookModel = mongoose.model('book', BookSchema);
 
