@@ -4,10 +4,6 @@ var bookModel = require('../model/bookModel');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.redirect('/book-list');
-});
-
-router.get('/book-list', function (req, res, next) {
     res.render('book-list', {title: '图书列表'})
 });
 
@@ -40,10 +36,6 @@ router.get('/bookDetail', function (req, res, next) {
         if (err) return console.log(err);
         response.json(result)
     })
-})
-
-router.get('/book-detail', function (req, res, next) {
-    res.render('book-detail', {title: "JavaScript权威指南"})
 })
 
 module.exports = router;
