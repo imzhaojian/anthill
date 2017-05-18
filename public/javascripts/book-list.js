@@ -77,7 +77,7 @@ class BookDetailContainer extends React.Component {
         };
 
         return (
-            <div className="book-detail-container center-flip">
+            <div className={"book-detail-container center-flip" + (this.props.show ? " s-show" : " s-hide")}>
                 <div className="book-info-container">
                     <BookImg img={this.props.book.img} />
                     <BookBaseInfo baseInfo={baseInfo} />
@@ -196,7 +196,7 @@ var BookListContainer = React.createClass({
             );
         }.bind(this));
         return (
-            <div className="book-list-container center-flip">
+            <div className={"book-list-container center-flip" + (this.props.show ? " s-show" : " s-hide")}>
                 <ul>
                 {bookNodes}
                 </ul>
@@ -237,9 +237,7 @@ var InnerTopNav = React.createClass({
 
 var Content = React.createClass({
     loadAllBookServer: function (type, pageNo) {
-        this.setState({type: type});
-        $(".book-list-container").removeClass("s-hide").addClass("s-show");
-        $(".book-detail-container").removeClass("s-show").addClass("s-hide");
+        this.setState({type: type, containerShow: true});
         $.ajax({
             url: this.props.listUrl,
             data: {
@@ -257,8 +255,7 @@ var Content = React.createClass({
         });
     },
     loadBookDetailServer: function (id) {
-        $(".book-detail-container").removeClass("s-hide").addClass("s-show");
-        $(".book-list-container").removeClass("s-show").addClass("s-hide");
+        this.setState({containerShow: false});
         $.ajax({
             url: this.props.detailUrl,
             data: {
@@ -275,7 +272,7 @@ var Content = React.createClass({
         });
     },
     getInitialState: function() {
-        return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all"};
+        return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all", containerShow: true};
     },
     componentDidMount: function() {
         this.loadAllBookServer("all");
@@ -284,8 +281,8 @@ var Content = React.createClass({
         return (
             <div>
                 <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
-                <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer}/>
-                <BookDetailContainer book={this.state.book}/>
+                <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer} show={this.state.containerShow}/>
+                <BookDetailContainer book={this.state.book} show={!this.state.containerShow}/>
                 <GoTop></GoTop>
                 <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} loadAllBookServer={this.loadAllBookServer}></Page>
             </div>
