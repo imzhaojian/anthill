@@ -33,6 +33,7 @@
 .pager .cursorContainer .cursor {
     padding: 8px 5px;
     cursor: pointer;
+    font-style: inherit;
 }
 
 .pager .cursorContainer .cursor:hover {
@@ -52,7 +53,6 @@
     color: #F95A5A;
     font-weight: bold;
     font-size: 18px;
-    font-style: inherit;
 }
 
 .pager .cursorContainer .cursor.prev, .pager .cursorContainer .cursor.next {

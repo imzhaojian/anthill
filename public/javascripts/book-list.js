@@ -19,7 +19,7 @@ var Page = React.createClass({
         for (var index = 1; index <= totalPage; index++) {
             var indexClassName = pageNo == index ? "cursor current" : "cursor";
             pageLi.push((function (index) {
-                return (<i className={indexClassName} key={index} data-pageNo={index} onClick={this.loadAllBookServer}>{index}</i>);
+                return (<li className={indexClassName} key={index} data-pageNo={index} onClick={this.loadAllBookServer}>{index}</li>);
             }.bind(this))(index));
         }
 
@@ -148,7 +148,7 @@ class BookDesc extends React.Component {
     render() {
         return (
             <div className="book-desc-container">
-                {this.props.desc}
+                <p dangerouslySetInnerHTML={{__html: this.props.desc}}></p>
                 <br/>
                 <br/>
                 <BookContent contents={this.props.contents} />
