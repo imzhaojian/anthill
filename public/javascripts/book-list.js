@@ -75,7 +75,6 @@ class BookDetailContainer extends React.Component {
             buyTime: this.props.book.buyTime,
             shortDesc: this.props.book.shortDesc
         };
-        console.info(this.props.show);
         var show = "";
         if (this.props.show == 0) {
             show = "s-init"
@@ -204,7 +203,6 @@ var BookListContainer = React.createClass({
                 <BookNode data={book} key={book.id} loadBookDetailServer={this.props.loadBookDetailServer}></BookNode>
             );
         }.bind(this));
-        console.info(this.props.show);
         var show = "";
         if (this.props.show == 1) {
             show = "s-show"
@@ -257,7 +255,7 @@ var Content = React.createClass({
             url: this.props.listUrl,
             data: {
                 type: type,
-                pageNo: pageNo ? pageNo : 1
+                pageNo: pageNo
             },
             dataType: 'json',
             cache: false,
@@ -266,14 +264,20 @@ var Content = React.createClass({
                     data: data.results,
                     pageNo: data.pageNo,
                     totalPage: data.totalPage,
-                    type: type,
-                    containerShowFlag: 1
+                    type: type
                 });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
+    },
+    initLoadAllBookServer: function (type, pageNo) {
+        this.loadAllBookServer(type, pageNo);
+    },
+    otherLoadAllBookServer: function (type, pageNo) {
+        this.loadAllBookServer(type, pageNo);
+        this.setState({containerShowFlag: 1});
     },
     loadBookDetailServer: function (id) {
         $.ajax({
@@ -295,16 +299,16 @@ var Content = React.createClass({
         return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all", containerShowFlag: 0};
     },
     componentDidMount: function() {
-        this.loadAllBookServer("all");
+        this.initLoadAllBookServer("all", 1);
     },
     render: function () {
         return (
             <div>
-                <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
+                <InnerTopNav loadAllBookServer={this.otherLoadAllBookServer}/>
                 <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer} show={this.state.containerShowFlag}/>
                 <BookDetailContainer book={this.state.book} show={-this.state.containerShowFlag}/>
                 <GoTop></GoTop>
-                <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} loadAllBookServer={this.loadAllBookServer}></Page>
+                <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} otherLoadAllBookServer={this.otherLoadAllBookServer}></Page>
             </div>
         );
     }
