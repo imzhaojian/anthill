@@ -13,18 +13,14 @@ var Page = React.createClass({
         var totalPage = this.props.totalPage;
         var pageNo = this.props.pageNo;
         var pageLi = [];
-        var prevClassName = pageNo <= 1 ? "cursor prev icon up disable" : "cursor prev icon up";
-        pageLi.push(<li className={prevClassName}></li>);
 
+        pageLi.push(<li className={pageNo <= 1 ? "cursor prev icon up disable" : "cursor prev icon up"}></li>);
         for (var index = 1; index <= totalPage; index++) {
-            var indexClassName = pageNo == index ? "cursor current" : "cursor";
             pageLi.push((function (index) {
-                return (<li className={indexClassName} key={index} data-pageNo={index} onClick={this.loadAllBookServer}>{index}</li>);
+                return (<li className={pageNo == index ? "cursor current" : "cursor"} key={index} data-pageNo={index} onClick={this.loadAllBookServer}>{index}</li>);
             }.bind(this))(index));
         }
-
-        var nextClassName = pageNo >= totalPage ? "cursor next icon down disable" : "cursor next icon down";
-        pageLi.push(<li className={nextClassName}></li>);
+        pageLi.push(<li className={pageNo >= totalPage ? "cursor next icon down disable" : "cursor next icon down"}></li>);
 
         return (
             <div className="pager">
@@ -60,9 +56,8 @@ var GoTop = React.createClass({
         this.setState({show: false});
     },
     render: function () {
-        var className = this.state.show ? "gotop icon up show" : "gotop icon up";
         return (
-            <div className={className} onClick={this.goToTop}></div>
+            <div className={this.state.show ? "gotop icon up show" : "gotop icon up"} onClick={this.goToTop}></div>
         )
     }
 });
@@ -82,7 +77,7 @@ class BookDetailContainer extends React.Component {
         };
 
         return (
-            <div className="book-detail-container center-flip s-hide">
+            <div className="book-detail-container center-flip">
                 <div className="book-info-container">
                     <BookImg img={this.props.book.img} />
                     <BookBaseInfo baseInfo={baseInfo} />
@@ -126,15 +121,8 @@ class BookBaseInfo extends React.Component {
  */
 class BookBaseLine extends React.Component {
     render() {
-        let className;
-        if (this.props.className) {
-            className = "book-base-line " + this.props.className;
-        } else {
-            className = "book-base-line";
-        }
-
         return (
-            <div className={className}>
+            <div className={ this.props.className ? "book-base-line " + this.props.className : "book-base-line"}>
                 {this.props.content}
             </div>
         )
@@ -194,7 +182,7 @@ var BookNode = React.createClass({
                 <div className="operate">
                     <div className="btn borrow">借阅</div>
                 </div>
-                <div className="shortDesc">{this.props.data.shortDesc}</div>
+                <div className="shortDesc">{this.props.data.shortDesc.length > 20 ? this.props.data.shortDesc.substring(0, 20) + "..." : this.props.data.shortDesc}</div>
             </li>
         );
     }
@@ -208,7 +196,7 @@ var BookListContainer = React.createClass({
             );
         }.bind(this));
         return (
-            <div className="book-list-container center-flip s-show">
+            <div className="book-list-container center-flip">
                 <ul>
                 {bookNodes}
                 </ul>
@@ -230,9 +218,8 @@ var InnerTopNav = React.createClass({
         var catalogs = [{type: "all", name: "所有图书"}, {type: "new", name: "新书"}, {type: "canBorrow", name: "未被借阅的书"}];
 
         var navLis = catalogs.map(function (catalog) {
-            var className = catalog.type == this.state.type ? catalog.type + " active" : catalog.type;
             return (
-                <li className={className} key={catalog.type} data-key={catalog.type} onClick={this.handleClick}>
+                <li className={catalog.type == this.state.type ? catalog.type + " active" : catalog.type} key={catalog.type} data-key={catalog.type} onClick={this.handleClick}>
                     <i className="icon home" data-key={catalog.type}></i>{catalog.name}
                 </li>
             )
