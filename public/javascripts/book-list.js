@@ -75,9 +75,18 @@ class BookDetailContainer extends React.Component {
             buyTime: this.props.book.buyTime,
             shortDesc: this.props.book.shortDesc
         };
+        console.info(this.props.show);
+        var show = "";
+        if (this.props.show == 0) {
+            show = "s-init"
+        } else if (this.props.show == 1) {
+            show = "s-show";
+        } else if (this.props.show == -1) {
+            show = "s-hide";
+        }
 
         return (
-            <div className={"book-detail-container center-flip" + (this.props.show ? " s-show" : " s-hide")}>
+            <div className={"book-detail-container center-flip " + show}>
                 <div className="book-info-container">
                     <BookImg img={this.props.book.img} />
                     <BookBaseInfo baseInfo={baseInfo} />
@@ -195,8 +204,15 @@ var BookListContainer = React.createClass({
                 <BookNode data={book} key={book.id} loadBookDetailServer={this.props.loadBookDetailServer}></BookNode>
             );
         }.bind(this));
+        console.info(this.props.show);
+        var show = "";
+        if (this.props.show == 1) {
+            show = "s-show"
+        } else if (this.props.show == -1) {
+            show = "s-hide";
+        }
         return (
-            <div className={"book-list-container center-flip" + (this.props.show ? " s-show" : " s-hide")}>
+            <div className={"book-list-container center-flip " + show}>
                 <ul>
                 {bookNodes}
                 </ul>
@@ -237,7 +253,6 @@ var InnerTopNav = React.createClass({
 
 var Content = React.createClass({
     loadAllBookServer: function (type, pageNo) {
-        this.setState({type: type, containerShow: true});
         $.ajax({
             url: this.props.listUrl,
             data: {
@@ -247,7 +262,13 @@ var Content = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({data: data.results, pageNo: data.pageNo, totalPage: data.totalPage});
+                this.setState({
+                    data: data.results,
+                    pageNo: data.pageNo,
+                    totalPage: data.totalPage,
+                    type: type,
+                    containerShowFlag: 1
+                });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -255,7 +276,6 @@ var Content = React.createClass({
         });
     },
     loadBookDetailServer: function (id) {
-        this.setState({containerShow: false});
         $.ajax({
             url: this.props.detailUrl,
             data: {
@@ -264,7 +284,7 @@ var Content = React.createClass({
             dataType: 'json',
             cache: false,
             success: function (data) {
-                this.setState({book: data[0]});
+                this.setState({book: data[0], containerShowFlag: -1});
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -272,7 +292,7 @@ var Content = React.createClass({
         });
     },
     getInitialState: function() {
-        return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all", containerShow: true};
+        return {data: [], pageNo: 1, totalPage: 1, book: {}, type: "all", containerShowFlag: 0};
     },
     componentDidMount: function() {
         this.loadAllBookServer("all");
@@ -281,8 +301,8 @@ var Content = React.createClass({
         return (
             <div>
                 <InnerTopNav loadAllBookServer={this.loadAllBookServer}/>
-                <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer} show={this.state.containerShow}/>
-                <BookDetailContainer book={this.state.book} show={!this.state.containerShow}/>
+                <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer} show={this.state.containerShowFlag}/>
+                <BookDetailContainer book={this.state.book} show={-this.state.containerShowFlag}/>
                 <GoTop></GoTop>
                 <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} loadAllBookServer={this.loadAllBookServer}></Page>
             </div>
