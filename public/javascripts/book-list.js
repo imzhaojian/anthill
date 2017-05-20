@@ -308,7 +308,7 @@ var Content = React.createClass({
                 <BookListContainer data={this.state.data} loadBookDetailServer={this.loadBookDetailServer} show={this.state.containerShowFlag}/>
                 <BookDetailContainer book={this.state.book} show={-this.state.containerShowFlag}/>
                 <GoTop></GoTop>
-                <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} otherLoadAllBookServer={this.otherLoadAllBookServer}></Page>
+                <Page pageNo={this.state.pageNo} totalPage={this.state.totalPage} type={this.state.type} loadAllBookServer={this.otherLoadAllBookServer}></Page>
             </div>
         );
     }
